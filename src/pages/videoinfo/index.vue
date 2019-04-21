@@ -50,7 +50,7 @@
     <view>
       <view class="saySthView">
         <input name="commentContent" class="saySth" :placeholder="placeholder" confirm-type="send"
-               bindconfirm="saveComment" :focus='commentFocus' v-model="contentValue"
+               @blur="saveComment" :focus='commentFocus' v-model="contentValue"
                :data-replyFatherCommentId='replyFatherCommentId'
                :data-replyToUserId='replyToUserId'
         />
@@ -85,6 +85,9 @@
 </template>
 
 <script>
+  import {flushSessionInStorageSync, getSessionInStorageSync, showOKToast, showToast} from "../../utils";
+  import {comments, serverUrl} from "../../utils/api";
+
   export default {
     name: "index",
     data() {
@@ -95,23 +98,115 @@
           nickname: '',
           videoDesc: ''
         },
-        videoInfo: {},
+        videoInfo: {
+          videoDesc: '',
+          id: '6ed65750e987451594e10606d6e40ffb'
+        },
         commentsList: [],
         userLikeVideo: false,
         commentFocus: false,
         contentValue: '',
         placeholder: '留言',
-        screenHeight: 0
+        screenHeight: 0,
+        commentsPage: 1,
+        commentsTotalPages: 1
       }
     },
     methods: {
       leaveComment() {
         this.commentFocus = true;
+      },
+      saveComment() {
+        let that = this;
+        if (that.contentValue === '') {
+          return;
+        }
+        mpvue.showLoading({
+          title: '正在保存...',
+        });
+        mpvue.request({
+          url: comments.save,
+          method: 'POST',
+          header: {
+            "content-type": "application/x-www-form-urlencoded",
+            'cookie': getSessionInStorageSync()
+          },
+          data: {
+            comment: that.contentValue,
+            videoId: that.videoInfo.id
+          },
+          success(res) {
+            mpvue.hideLoading();
+            if (res.statusCode === 201) {
+              showOKToast("评论成功");
+              that.contentValue = '';
+              that.getCommentsList(1, 5, true);
+            } else {
+              if (res.statusCode === 401) {
+                mpvue.redirectTo({
+                  url: '../userLogin/main',
+                });
+                return;
+              }
+              showToast("评论失败");
+            }
+          },
+          fail() {
+            showToast('接口调用失败')
+          }
+        })
+      },
+      getCommentsList(page = 1, pageSize = 5, clear = false) {
+        mpvue.showLoading({
+          title: '加载中...',
+        });
+        let that = this;
+        mpvue.request({
+          url: `${comments.get}?page=${page}&pageSize=${pageSize}&videoId=${that.videoInfo.id}`,
+          method: "GET",
+          header: {
+            'cookie': getSessionInStorageSync()
+          },
+          success: function (res) {
+            mpvue.hideLoading();
+            if (res.statusCode === 200) {
+              console.log(res.data);
+              that.commentsPage = res.data.data.page;
+              that.commentsTotalPages = res.data.data.total;
+              if (clear) {
+                that.commentsList = res.data.data.rows.map(r => {
+                  r.faceImage = `${serverUrl}/face/${r.faceImage}`;
+                  return r;
+                });
+              } else {
+                that.commentsList = that.commentsList.concat(res.data.data.rows.map(r => {
+                  r.faceImage = `${serverUrl}/face/${r.faceImage}`;
+                  return r;
+                }));
+              }
+            } else {
+              showToast(res.data.msg)
+            }
+          },
+          fail: function () {
+            showToast("接口调用失败")
+          }
+        })
       }
     },
     created() {
       this.screenHeight = mpvue.getSystemInfoSync().screenHeight + 'px';
-    }
+      this.getCommentsList();
+    },
+    onReachBottom() {
+      console.log('onReachBottom');
+      if (this.commentsPage >= this.commentsTotalPages) {
+        showToast("没有更多评论了");
+        return;
+      }
+      this.commentsPage = (this.commentsPage) + 1;
+      this.getCommentsList(this.commentsPage);
+    },
   }
 </script>
 
@@ -216,7 +311,7 @@
 
   .comments-all {
     /* margin-top: 10px; */
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
     /* border-bottom: solid 1px gray;   */
     background-color: #141414;
     color: #e8e8e8;

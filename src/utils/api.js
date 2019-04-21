@@ -14,3 +14,7 @@ export const video = {
   upload: `${serverUrl}/video/upload`,
   all: `${serverUrl}/video/showAll`
 };
+export const comments = {
+  save: `${serverUrl}/video/saveComment`,
+  get: `${serverUrl}/video/getVideoComments`
+};
