@@ -1,6 +1,19 @@
-# yunshu-short-video-applets
+# 云舒短视频小程序
 
 > A Mpvue project
+
+[![GitHub stars](https://img.shields.io/github/stars/itning/YunShuShortVideoApplets.svg?style=social&label=Stars)](https://github.com/itning/YunShuShortVideoApplets/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/itning/YunShuShortVideoApplets.svg?style=social&label=Fork)](https://github.com/itning/YunShuShortVideoApplets/network/members)
+[![GitHub watchers](https://img.shields.io/github/watchers/itning/YunShuShortVideoApplets.svg?style=social&label=Watch)](https://github.com/itning/YunShuShortVideoApplets/watchers)
+[![GitHub followers](https://img.shields.io/github/followers/itning.svg?style=social&label=Follow)](https://github.com/itning?tab=followers)
+
+[![GitHub issues](https://img.shields.io/github/issues/itning/YunShuShortVideoApplets.svg)](https://github.com/itning/YunShuShortVideoApplets/issues)
+[![GitHub license](https://img.shields.io/github/license/itning/YunShuShortVideoApplets.svg)](https://github.com/itning/YunShuShortVideoApplets/blob/master/LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/itning/YunShuShortVideoApplets.svg)](https://github.com/itning/YunShuShortVideoApplets/commits)
+[![GitHub release](https://img.shields.io/github/release/itning/YunShuShortVideoApplets.svg)](https://github.com/itning/YunShuShortVideoApplets/releases)
+[![GitHub repo size in bytes](https://img.shields.io/github/repo-size/itning/YunShuShortVideoApplets.svg)](https://github.com/itning/YunShuShortVideoApplets)
+[![HitCount](http://hits.dwyl.io/itning/YunShuShortVideoApplets.svg)](http://hits.dwyl.io/itning/YunShuShortVideoApplets)
+[![language](https://img.shields.io/badge/language-Vue-green.svg)](https://github.com/itning/YunShuShortVideoApplets)
 
 ## Build Setup
 
