@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/videoinfo/main",
+    "pages/index/main",
+    "pages/mine/main",
+    "pages/chooseBgm/main",
+    "pages/userRegist/main",
+    "pages/userLogin/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "云舒云小站",
+    "navigationBarTextStyle": "black"
+  }
+}

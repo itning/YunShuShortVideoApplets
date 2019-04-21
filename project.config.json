@@ -1,0 +1,32 @@
+{
+    "description": "项目配置文件。",
+    "setting": {
+        "urlCheck": true,
+        "es6": false,
+        "postcss": true,
+        "minified": true,
+        "newFeature": true
+    },
+    "miniprogramRoot": "dist/wx/",
+    "compileType": "miniprogram",
+    "appid": "wxec9b14e9d3d4e8c6",
+    "projectname": "yunshu-short-video-applets",
+    "condition": {
+        "search": {
+            "current": -1,
+            "list": []
+        },
+        "conversation": {
+            "current": -1,
+            "list": []
+        },
+        "game": {
+            "currentL": -1,
+            "list": []
+        },
+        "miniprogram": {
+            "current": -1,
+            "list": []
+        }
+    }
+}
